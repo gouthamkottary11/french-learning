@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>The Burger Joint</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg: radial-gradient(circle at top left,#eef2ff,#fdf2f8,#ecfeff);
+  --card: rgba(255,255,255,0.85);
+  --text:#0b1220;
+  --muted:#6b7280;
+  --primary:#6366f1;
+  --lucas:#ef4444;
+  --emma:#10b981;
+}
+
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Outfit',sans-serif}
+body{background:var(--bg);min-height:100vh;padding-bottom:160px;color:var(--text)}
+
+.container{max-width:900px;margin:auto;padding:24px}
+
+/* HEADER */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:28px;
+}
+.icon{
+  width:42px;height:42px;
+  border-radius:50%;
+  border:2px solid #000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.level{
+  background:#fff;
+  padding:8px 18px;
+  border-radius:999px;
+  font-weight:600;
+  color:var(--primary);
+}
+
+/* HERO */
+.hero{
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,0.95),
+    rgba(255,255,255,0.85)
+  );
+  backdrop-filter: blur(14px);
+  border-radius:36px;
+  padding:36px;
+  display:grid;
+  grid-template-columns:220px 1fr;
+  gap:32px;
+  box-shadow:
+    0 40px 80px rgba(0,0,0,.12),
+    inset 0 1px 0 rgba(255,255,255,.6);
+}
+
+.hero .img{
+  height:220px;
+  border-radius:20px;
+  background:#f1f5f9;
+}
+.hero h1{font-size:42px;margin-bottom:12px}
+.hero p{color:var(--muted);line-height:1.6}
+
+.tags{margin-top:16px}
+.tag{
+  display:inline-block;
+  margin-right:8px;
+  margin-top:6px;
+  padding:6px 12px;
+  border-radius:10px;
+  font-size:12px;
+  font-weight:600;
+}
+.blue{background:#eef2ff;color:#4338ca}
+.green{background:#ecfdf5;color:#047857}
+.red{background:#fee2e2;color:#b91c1c}
+
+/* DIALOGUE */
+.dialogue{margin-top:56px;display:flex;flex-direction:column;gap:28px}
+.row{display:flex;gap:16px;align-items:flex-start}
+
+.avatar{
+  width:52px;height:52px;
+  border-radius:16px;
+  color:#fff;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.avatar.lucas{background:var(--lucas)}
+.avatar.emma{background:var(--emma)}
+
+
+.bubble{
+  background:linear-gradient(180deg,#ffffff,#fafafa);
+  padding:20px 22px;
+  border-radius:22px;
+  flex:1;
+  box-shadow:
+    0 18px 35px rgba(0,0,0,.08),
+    inset 0 1px 0 rgba(255,255,255,.8);
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.bubble:hover{
+  transform:translateY(-2px);
+  box-shadow:0 22px 45px rgba(0,0,0,.12);
+}
+
+.bubble.active{
+  outline:none;
+  box-shadow:
+    0 0 0 3px rgba(99,102,241,.35),
+    0 25px 50px rgba(0,0,0,.15);
+}
+
+
+.name{
+  font-size:12px;
+  font-weight:600;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+.fr{
+  font-size:18px;
+  line-height:1.5;
+}
+
+.en{
+  line-height:1.45;
+  letter-spacing:.2px;
+}
+
+.bubble.show .en{display:block}
+
+/* PLAYER */
+.player{
+  position:fixed;
+  bottom:18px;
+  left:50%;
+  transform:translateX(-50%);
+  width:92%;
+  max-width:860px;
+  background:linear-gradient(180deg,#ffffff,#f8fafc);
+  padding:18px 22px;
+  border-radius:28px;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  box-shadow:
+    0 35px 70px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,255,255,.7);
+}
+
+.play{
+  width:56px;height:56px;
+  border-radius:50%;
+  background:#0f172a;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  cursor:pointer;
+}
+.progress{
+  flex:1;
+  height:6px;
+  background:#e5e7eb;
+  border-radius:6px;
+  overflow:hidden;
+}
+.progress span{
+  display:block;
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,#6366f1,#ec4899);
+}
+.controls button,
+.selector-btn,
+.line-translate{
+  transition:
+    transform .15s ease,
+    background .15s ease,
+    box-shadow .15s ease;
+}
+
+.controls button:hover,
+.selector-btn:hover,
+.line-translate:hover{
+  transform:translateY(-1px);
+  box-shadow:0 6px 16px rgba(0,0,0,.12);
+}
+
+
+@media(max-width:768px){
+.hero{grid-template-columns:1fr;text-align:center}
+}
+/* --- NEW: Speed & Speaker Controls --- */
+.selector{
+  position:relative;
+}
+
+.selector-btn{
+  border:none;
+  background:#f1f5f9;
+  padding:8px 12px;
+  border-radius:12px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.speaker-menu{
+  position:absolute;
+  bottom:120%;
+  right:0;
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 20px 40px rgba(0,0,0,.15);
+  display:none;
+  overflow:hidden;
+}
+
+.speaker-menu div{
+  padding:10px 16px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.speaker-menu div:hover{background:#eef2ff}
+.speaker-menu .active{background:#6366f1;color:#fff}
+
+/* --- Individual Line Translator --- */
+.line-translate{
+  margin-top:8px;
+  border:none;
+  background:#eef2ff;
+  color:#4338ca;
+  padding:6px 10px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+}
+.line-translate:hover{
+  background:#e0e7ff;
+}
+
+.en{
+  display:none;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+<div class="icon">←</div>
+<div class="level">A1 Beginner</div>
+<div class="icon">🌙</div>
+</header>
+
+<section class="hero">
+<div class="img"></div>
+<div>
+<h1>The Burger Joint</h1>
+<p>
+Emma and Lucas are walking through the city, feeling hungry. They want to find a good burger place nearby.
+</p>
+<div class="tags">
+<span class="tag blue">Theme: Science</span>
+<span class="tag green">Grammar: Adverbial Phrases</span>
+<span class="tag red">Text: Dialogue</span>
+</div>
+</div>
+</section>
+
+<!-- DIALOGUE -->
+<section class="dialogue" id="dialogue">
+
+<!-- LUCAS -->
+<div class="row" data-voice="male" data-text="J'ai vraiment envie de manger un bon burger ce soir.">
+<div class="avatar lucas">L</div>
+<div class="bubble">
+<div class="name">LUCAS • 1.1</div>
+<div class="fr">J'ai vraiment envie de manger un bon burger ce soir.</div>
+<div class="en">I really want to eat a good burger tonight.</div>
+<button class="line-translate">Translate</button>
+</div>
+</div>
+
+<div class="row" data-voice="female" data-text="Moi aussi, mais pas n'importe lequel, je veux un burger vraiment spécial.">
+<div class="avatar emma">E</div>
+<div class="bubble">
+<div class="name">EMMA • 2.1</div>
+<div class="fr">Moi aussi, mais pas n'importe lequel, je veux un burger vraiment spécial.</div>
+<div class="en">Me too, but not just any one, I want a really special burger.</div>
+<button class="line-translate">Translate</button>
+</div>
+</div>
+
+<div class="row" data-voice="male" data-text="Tu connais un bon endroit près d'ici ?">
+<div class="avatar lucas">L</div>
+<div class="bubble">
+<div class="name">LUCAS • 1.2</div>
+<div class="fr">Tu connais un bon endroit près d'ici ?</div>
+<div class="en">Do you know a good place near here?</div>
+<button class="line-translate">Translate</button>
+</div>
+</div>
+
+<div class="row" data-voice="female" data-text="Oui, j'ai entendu parler d'un petit restaurant dans cette rue.">
+<div class="avatar emma">E</div>
+<div class="bubble">
+<div class="name">EMMA • 2.2</div>
+<div class="fr">Oui, j'ai entendu parler d'un petit restaurant dans cette rue.</div>
+<div class="en">Yes, I heard about a small restaurant on this street.</div>
+<button class="line-translate">Translate</button>
+</div>
+</div>
+
+<div class="row" data-voice="male" data-text="Parfait, allons-y tout de suite.">
+<div class="avatar lucas">L</div>
+<div class="bubble">
+<div class="name">LUCAS • 1.3</div>
+<div class="fr">Parfait, allons-y tout de suite.</div>
+<div class="en">Perfect, let's go right now.</div>
+<button class="line-translate">Translate</button>
+</div>
+</div>
+
+<div class="row" data-voice="female" data-text="D'accord, j'ai vraiment faim aussi.">
+<div class="avatar emma">E</div>
+<div class="bubble">
+<div class="name">EMMA • 2.3</div>
+<div class="fr">D'accord, j'ai vraiment faim aussi.</div>
+<div class="en">Alright, I’m really hungry too.</div>
+<button class="line-translate">Translate</button>
+</div>
+</div>
+
+</section>
+</div>
+
+<!-- PLAYER -->
+<div class="player">
+<div class="play" id="playBtn">▶</div>
+<div class="progress"><span id="bar"></span></div>
+<div class="controls">
+    <button class="selector-btn" id="speedBtn">1x</button>
+
+<div class="selector">
+  <button class="selector-btn" id="speakerBtn">👤 Both</button>
+  <div class="speaker-menu" id="speakerMenu">
+    <div class="active" data-mode="both">Both</div>
+    <div data-mode="male">Lucas Only</div>
+    <div data-mode="female">Emma Only</div>
+  </div>
+</div>
+
+<button id="translateAll">🌐</button>
+</div>
+</div>
+
+<script>
+const rows=[...document.querySelectorAll(".row")];
+const playBtn=document.getElementById("playBtn");
+const bar=document.getElementById("bar");
+const translateAll=document.getElementById("translateAll");
+
+let index=0,playing=false;
+
+/* MALE / FEMALE VOICE SELECTION */
+function getVoice(type){
+  const voices=speechSynthesis.getVoices();
+  if(type==="male"){
+    return voices.find(v=>v.name.toLowerCase().includes("male")) || voices[0];
+  }
+  if(type==="female"){
+    return voices.find(v=>v.name.toLowerCase().includes("female")) || voices[1] || voices[0];
+  }
+  return voices[0];
+}
+
+function speak(text,type){
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang="fr-FR";
+  u.voice=getVoice(type);
+  speechSynthesis.speak(u);
+  return u;
+}
+
+function playNext(){
+  if(index>=rows.length){
+    playing=false;
+    playBtn.textContent="▶";
+    bar.style.width="0%";
+    index=0;
+    return;
+  }
+
+  rows.forEach(r=>r.querySelector(".bubble").classList.remove("active"));
+  const row=rows[index];
+  const bubble=row.querySelector(".bubble");
+  bubble.classList.add("active");
+
+  speak(row.dataset.text,row.dataset.voice).onend=()=>{
+    index++;
+    bar.style.width=(index/rows.length*100)+"%";
+    if(playing)playNext();
+  };
+}
+
+playBtn.onclick=()=>{
+  if(!playing){
+    playing=true;
+    playBtn.textContent="⏸";
+    playNext();
+  }else{
+    playing=false;
+    speechSynthesis.cancel();
+    playBtn.textContent="▶";
+  }
+};
+
+/* -------- GLOBAL TRANSLATION (STATEFUL) -------- */
+let globalTranslateOn = false;
+
+translateAll.onclick = () => {
+  globalTranslateOn = !globalTranslateOn;
+
+  document.querySelectorAll(".bubble").forEach(bubble => {
+    bubble.classList.toggle("show", globalTranslateOn);
+  });
+};
+
+/* -------- SPEED CONTROL -------- */
+const speedBtn = document.getElementById("speedBtn");
+const speeds = [0.75, 1, 1.25];
+let speedIndex = 1;
+let playbackRate = speeds[speedIndex];
+
+speedBtn.onclick = () => {
+  speedIndex = (speedIndex + 1) % speeds.length;
+  playbackRate = speeds[speedIndex];
+  speedBtn.textContent = playbackRate + "x";
+};
+
+/* -------- SPEAKER FILTER -------- */
+const speakerBtn = document.getElementById("speakerBtn");
+const speakerMenu = document.getElementById("speakerMenu");
+const speakerOptions = speakerMenu.querySelectorAll("div");
+
+let speakerMode = "both";
+
+speakerBtn.onclick = () => {
+  speakerMenu.style.display =
+    speakerMenu.style.display === "block" ? "none" : "block";
+};
+
+speakerOptions.forEach(opt => {
+  opt.onclick = () => {
+    speakerOptions.forEach(o => o.classList.remove("active"));
+    opt.classList.add("active");
+    speakerMode = opt.dataset.mode;
+    speakerBtn.textContent = "👤 " + opt.innerText;
+    speakerMenu.style.display = "none";
+  };
+});
+
+/* -------- PATCH EXISTING FUNCTIONS (NON-DESTRUCTIVE) -------- */
+/* -------- SAFE OVERRIDES (NO SIDE EFFECTS) -------- */
+
+// Override speak ONCE, before speech starts
+const _speak = speak;
+speak = function(text, type){
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "fr-FR";
+  u.voice = getVoice(type);
+  u.rate = playbackRate; // ✅ speed applied BEFORE speak
+  speechSynthesis.speak(u);
+  return u;
+};
+
+// Override playNext with clean skip logic
+const _playNext = playNext;
+playNext = function(){
+  if(index >= rows.length){
+    playing = false;
+    playBtn.textContent = "▶";
+    bar.style.width = "0%";
+    index = 0;
+    return;
+  }
+
+  const row = rows[index];
+
+  // Speaker filter
+  if(
+    speakerMode === "male" && row.dataset.voice !== "male" ||
+    speakerMode === "female" && row.dataset.voice !== "female"
+  ){
+    index++;
+    playNext();
+    return;
+  }
+
+  rows.forEach(r => r.querySelector(".bubble").classList.remove("active"));
+  const bubble = row.querySelector(".bubble");
+  bubble.classList.add("active");
+
+  speak(row.dataset.text, row.dataset.voice).onend = () => {
+    index++;
+    bar.style.width = (index / rows.length * 100) + "%";
+    if(playing) playNext();
+  };
+};
+/* -------- INDIVIDUAL TRANSLATION -------- */
+document.querySelectorAll(".line-translate").forEach(btn => {
+  btn.onclick = (e) => {
+    e.stopPropagation();
+    const bubble = e.target.closest(".bubble");
+    bubble.classList.toggle("show");
+  };
+});
+
+
+
+
+</script>
+
+</body>
+</html>
