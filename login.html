@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - LangLearn</title>
-    <meta name="description" content="Sign in to your LangLearn account to continue your language learning journey">
+    <title>At the Café - French Learning | LangLearn</title>
+    <meta name="description" content="Learn French through interactive conversations between native speakers">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,6 +34,10 @@
 
             --success: #10B981;
             --error: #EF4444;
+            --warning: #F59E0B;
+
+            --emma-color: #EC4899;
+            --lucas-color: #06B6D4;
 
             --glass-bg: rgba(255, 255, 255, 0.85);
             --glass-border: rgba(255, 255, 255, 0.5);
@@ -68,120 +72,101 @@
             font-family: var(--font-body);
             background-color: var(--bg-light);
             background-image:
-                radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.15) 0px, transparent 50%),
-                radial-gradient(at 0% 100%, rgba(16, 185, 129, 0.15) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.12) 0px, transparent 50%);
             background-attachment: fixed;
             color: var(--text-main);
             min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            padding-bottom: 140px;
+        }
+
+        /* === Container === */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        /* === Header === */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .header-left {
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 24px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            gap: 16px;
         }
 
-        /* === Animated Background Elements === */
-        .bg-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.3;
-            animation: float 20s infinite ease-in-out;
-            pointer-events: none;
-        }
-
-        .orb-1 {
-            width: 400px;
-            height: 400px;
-            background: linear-gradient(135deg, #4F46E5, #EC4899);
-            top: -200px;
-            left: -200px;
-            animation-delay: 0s;
-        }
-
-        .orb-2 {
-            width: 350px;
-            height: 350px;
-            background: linear-gradient(135deg, #06B6D4, #10B981);
-            bottom: -150px;
-            right: -150px;
-            animation-delay: 5s;
-        }
-
-        .orb-3 {
-            width: 300px;
-            height: 300px;
-            background: linear-gradient(135deg, #EC4899, #F59E0B);
-            top: 50%;
-            right: -100px;
-            animation-delay: 10s;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1);
-            }
-
-            33% {
-                transform: translate(30px, -30px) scale(1.1);
-            }
-
-            66% {
-                transform: translate(-20px, 20px) scale(0.9);
-            }
-        }
-
-        /* === Theme Toggle === */
-        .theme-toggle {
-            position: absolute;
-            top: 24px;
-            right: 24px;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
+        .back-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
             background: var(--surface-light);
             border: 1px solid var(--border-light);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 20px;
-            color: var(--text-main);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            z-index: 10;
+            color: var(--text-main);
+            font-size: 20px;
         }
 
-        .theme-toggle:hover {
-            transform: scale(1.1) rotate(15deg);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        .back-btn:hover {
+            transform: translateX(-4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        /* === Login Container === */
-        .login-container {
-            width: 100%;
-            max-width: 440px;
-            position: relative;
-            z-index: 1;
-            animation: slideUp 0.6s ease-out;
+        .level-badge {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
         }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
+        .header-right {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .icon-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--surface-light);
+            border: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-main);
+            font-size: 20px;
+        }
+
+        .icon-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
         }
 
         /* === Glass Card === */
@@ -192,538 +177,1587 @@
             border: 1px solid var(--border-light);
             border-radius: var(--radius-lg);
             box-shadow: var(--glass-shadow);
-            padding: 48px 40px;
             transition: all 0.3s ease;
         }
 
-        .glass-card:hover {
-            box-shadow: 0 12px 48px rgba(31, 38, 135, 0.15);
-            transform: translateY(-2px);
+        /* === Story Header === */
+        .story-header {
+            padding: 40px;
+            margin-bottom: 32px;
         }
 
-        /* === Logo & Header === */
-        .logo-section {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .logo {
-            width: 64px;
-            height: 64px;
-            margin: 0 auto 20px;
+        .story-title {
+            font-family: var(--font-display);
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 16px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .story-description {
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .story-meta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .meta-tag {
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .meta-tag.theme {
+            background: rgba(79, 70, 229, 0.1);
+            color: var(--primary);
+        }
+
+        .meta-tag.grammar {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .meta-tag.difficulty {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        /* === Conversation Section === */
+        .conversation-section {
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .global-translate-btn {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        .global-translate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+        }
+
+        .global-translate-btn.active {
+            background: var(--success);
+        }
+
+        /* === Dialogue === */
+        .dialogue-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .dialogue-item {
+            display: flex;
+            gap: 16px;
+            padding: 20px;
+            border-radius: var(--radius-md);
+            background: var(--surface-light);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .dialogue-item:hover {
+            border-color: var(--border-light);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+            transform: translateX(4px);
+        }
+
+        .dialogue-item.emma {
+            border-left: 4px solid var(--emma-color);
+        }
+
+        .dialogue-item.lucas {
+            border-left: 4px solid var(--lucas-color);
+        }
+
+        .dialogue-item.playing {
+            border-color: var(--primary);
+            background: rgba(79, 70, 229, 0.05);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.15);
+            transform: translateX(8px) scale(1.02);
+        }
+
+        .avatar {
+            width: 56px;
+            height: 56px;
             border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
+            font-weight: 700;
+            font-size: 20px;
             color: white;
-            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.3);
-            animation: pulse 2s infinite;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
-        @keyframes pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-                box-shadow: 0 8px 24px rgba(79, 70, 229, 0.3);
-            }
-
-            50% {
-                transform: scale(1.05);
-                box-shadow: 0 12px 32px rgba(79, 70, 229, 0.4);
-            }
+        .avatar.emma {
+            background: linear-gradient(135deg, #EC4899, #F472B6);
         }
 
-        h1 {
+        .avatar.lucas {
+            background: linear-gradient(135deg, #06B6D4, #22D3EE);
+        }
+
+        .dialogue-content {
+            flex: 1;
+        }
+
+        .speaker-name {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .speaker-name.emma {
+            color: var(--emma-color);
+        }
+
+        .speaker-name.lucas {
+            color: var(--lucas-color);
+        }
+
+        .french-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-main);
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .english-text {
+            font-size: 15px;
+            color: var(--text-muted);
+            font-style: italic;
+            line-height: 1.5;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .english-text.show {
+            max-height: 200px;
+            opacity: 1;
+            margin-top: 8px;
+        }
+
+        .dialogue-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .action-btn {
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            background: var(--bg-light);
+            color: var(--text-main);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .action-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* === Audio Player Bar === */
+        .audio-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--surface-light);
+            border-top: 2px solid var(--border-light);
+            box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .player-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 16px 24px;
+        }
+
+        .player-main {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 12px;
+        }
+
+        .player-controls-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .play-pause-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.3);
+        }
+
+        .play-pause-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 24px rgba(79, 70, 229, 0.4);
+        }
+
+        .play-pause-btn:active {
+            transform: scale(0.95);
+        }
+
+        .skip-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-light);
+            border: 1px solid var(--border-light);
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .skip-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .skip-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .player-progress {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .current-dialogue {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .time-display {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border-light);
+            border-radius: 50px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 50px;
+            transition: width 0.1s linear;
+            position: relative;
+        }
+
+        .progress-fill-bar::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .player-controls-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .control-btn {
+            padding: 8px 16px;
+            border-radius: 50px;
+            background: var(--bg-light);
+            border: 1px solid var(--border-light);
+            color: var(--text-main);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .control-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .control-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Speaker Selector Dropdown */
+        .speaker-selector {
+            position: relative;
+        }
+
+        .speaker-dropdown {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            right: 0;
+            background: var(--surface-light);
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            padding: 8px;
+            min-width: 180px;
+            display: none;
+            z-index: 10;
+        }
+
+        .speaker-dropdown.show {
+            display: block;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .speaker-option {
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .speaker-option:hover {
+            background: var(--bg-light);
+        }
+
+        .speaker-option.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .speaker-option i {
+            font-size: 16px;
+        }
+
+        /* Speed Selector Dropdown */
+        .speed-selector {
+            position: relative;
+        }
+
+        .speed-dropdown {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            right: 0;
+            background: var(--surface-light);
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            padding: 8px;
+            min-width: 120px;
+            display: none;
+            z-index: 10;
+        }
+
+        .speed-dropdown.show {
+            display: block;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .speed-option {
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .speed-option:hover {
+            background: var(--bg-light);
+        }
+
+        .speed-option.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* === Quiz Section === */
+        .quiz-section {
+            padding: 40px;
+            margin-bottom: 32px;
+        }
+
+        .quiz-intro {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .quiz-intro h2 {
             font-family: var(--font-display);
             font-size: 32px;
             font-weight: 700;
-            margin-bottom: 8px;
-            background: linear-gradient(135deg, var(--text-main) 0%, var(--text-muted) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            color: var(--text-main);
         }
 
-        .subtitle {
-            font-size: 15px;
+        .quiz-intro p {
+            font-size: 16px;
             color: var(--text-muted);
-            font-weight: 500;
         }
 
-        /* === Form === */
-        .login-form {
+        .quiz-list {
             display: flex;
             flex-direction: column;
             gap: 24px;
         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        label {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-left: 4px;
-        }
-
-        .input-wrapper {
-            position: relative;
-        }
-
-        .input-icon {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
-            color: var(--text-muted);
-            transition: color 0.3s ease;
-        }
-
-        input {
-            width: 100%;
-            padding: 14px 16px 14px 48px;
+        .quiz-item {
+            background: var(--surface-light);
             border: 2px solid var(--border-light);
             border-radius: var(--radius-md);
-            font-family: var(--font-body);
-            font-size: 15px;
-            color: var(--text-main);
-            background: var(--surface-light);
+            padding: 28px;
             transition: all 0.3s ease;
-            outline: none;
         }
 
-        input::placeholder {
-            color: var(--text-muted);
+        .quiz-item:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
         }
 
-        input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
-        }
-
-        input:focus+.input-icon {
-            color: var(--primary);
-        }
-
-        /* === Password Toggle === */
-        .password-toggle {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
+        .quiz-question {
             font-size: 20px;
-            padding: 4px;
-            transition: color 0.3s ease;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            line-height: 1.5;
         }
 
-        .password-toggle:hover {
-            color: var(--primary);
-        }
-
-        /* === Remember & Forgot === */
-        .form-options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: -8px;
-        }
-
-        .checkbox-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .checkbox-wrapper input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            padding: 0;
-            cursor: pointer;
-            accent-color: var(--primary);
-        }
-
-        .checkbox-wrapper label {
-            font-size: 14px;
-            font-weight: 500;
-            margin: 0;
-            cursor: pointer;
-        }
-
-        .forgot-link {
-            font-size: 14px;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .forgot-link:hover {
-            color: var(--primary-dark);
-            text-decoration: underline;
-        }
-
-        /* === Button === */
-        .btn-primary {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            border: none;
-            border-radius: var(--radius-md);
-            font-family: var(--font-body);
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .btn-primary:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.4);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
-        }
-
-        /* === Divider === */
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin: 32px 0;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border-light);
-        }
-
-        .divider span {
-            font-size: 13px;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        /* === Social Login === */
-        .social-login {
+        .quiz-options {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
             gap: 12px;
         }
 
-        .social-btn {
-            padding: 12px;
+        .quiz-option {
+            padding: 16px 20px;
             border: 2px solid var(--border-light);
-            border-radius: var(--radius-md);
-            background: var(--surface-light);
+            border-radius: var(--radius-sm);
+            background: var(--bg-light);
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-family: var(--font-body);
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-main);
             transition: all 0.3s ease;
+            font-size: 15px;
+            font-weight: 500;
+            text-align: left;
+            position: relative;
         }
 
-        .social-btn:hover {
-            border-color: var(--primary);
+        .quiz-option:hover {
+            border-color: var(--primary-light);
             background: rgba(79, 70, 229, 0.05);
             transform: translateY(-2px);
         }
 
-        .social-btn i {
-            font-size: 20px;
-        }
-
-        /* === Footer === */
-        .form-footer {
-            text-align: center;
-            margin-top: 32px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border-light);
-        }
-
-        .form-footer p {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        .signup-link {
-            color: var(--primary);
-            text-decoration: none;
+        .quiz-option.selected {
+            border-color: var(--primary);
+            background: rgba(79, 70, 229, 0.1);
             font-weight: 600;
-            transition: color 0.3s ease;
         }
 
-        .signup-link:hover {
-            color: var(--primary-dark);
-            text-decoration: underline;
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .quiz-option.wrong {
+            border-color: var(--error);
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        .quiz-option.disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .quiz-feedback {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.correct {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .quiz-feedback.wrong {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+            border: 1px solid var(--error);
+        }
+
+        .submit-quiz-btn {
+            margin-top: 32px;
+            padding: 16px 48px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.3);
+        }
+
+        .submit-quiz-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.4);
+        }
+
+        .submit-quiz-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .quiz-result {
+            text-align: center;
+            padding: 32px;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(236, 72, 153, 0.1));
+            border-radius: var(--radius-md);
+            margin-top: 24px;
+            display: none;
+        }
+
+        .quiz-result.show {
+            display: block;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .quiz-result h3 {
+            font-family: var(--font-display);
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .quiz-score {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 16px 0;
         }
 
         /* === Responsive === */
-        @media (max-width: 480px) {
-            .glass-card {
-                padding: 32px 24px;
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
             }
 
-            h1 {
-                font-size: 28px;
+            body {
+                padding-bottom: 180px;
             }
 
-            .social-login {
+            .story-title {
+                font-size: 32px;
+            }
+
+            .story-header,
+            .conversation-section,
+            .quiz-section {
+                padding: 24px 20px;
+            }
+
+            .quiz-options {
                 grid-template-columns: 1fr;
             }
 
-            .form-options {
+            .dialogue-item {
+                flex-direction: column;
+            }
+
+            .section-header {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 12px;
+                gap: 16px;
             }
-        }
 
-        /* === Loading State === */
-        .btn-primary.loading {
-            pointer-events: none;
-            opacity: 0.7;
-        }
+            .player-main {
+                flex-wrap: wrap;
+            }
 
-        .btn-primary.loading::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            top: 50%;
-            left: 50%;
-            margin-left: -10px;
-            margin-top: -10px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.6s linear infinite;
-        }
+            .player-progress {
+                order: -1;
+                flex-basis: 100%;
+            }
 
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
+            .player-controls-right {
+                flex-wrap: wrap;
+            }
+
+            .control-btn span {
+                display: none;
             }
         }
     </style>
 </head>
 
 <body>
-    <!-- Animated Background Orbs -->
-    <div class="bg-orb orb-1"></div>
-    <div class="bg-orb orb-2"></div>
-    <div class="bg-orb orb-3"></div>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <button class="back-btn" onclick="window.history.back()">
+                    <i class="ri-arrow-left-line"></i>
+                </button>
+                <div class="level-badge">A1 Beginner</div>
+            </div>
+            <div class="header-right">
+                <button class="icon-btn" id="themeToggle">
+                    <i class="ri-moon-line"></i>
+                </button>
+                <button class="icon-btn">
+                    <i class="ri-bookmark-line"></i>
+                </button>
+            </div>
+        </div>
 
-    <!-- Theme Toggle -->
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <i class="ri-moon-line"></i>
-    </button>
+        <!-- Story Header -->
+        <div class="glass-card story-header">
+            <h1 class="story-title">At the Café ☕</h1>
+            <p class="story-description">
+                Emma and Lucas meet at a cozy café in Paris. They order drinks, chat about their day,
+                and practice common French phrases used in everyday conversations.
+            </p>
+            <div class="story-meta">
+                <span class="meta-tag theme">
+                    <i class="ri-restaurant-line"></i>
+                    Theme: Daily Life
+                </span>
+                <span class="meta-tag grammar">
+                    <i class="ri-book-2-line"></i>
+                    Grammar: Present Tense
+                </span>
+                <span class="meta-tag difficulty">
+                    <i class="ri-star-line"></i>
+                    5 min read
+                </span>
+            </div>
+        </div>
 
-    <!-- Login Container -->
-    <div class="login-container">
-        <div class="glass-card">
-            <!-- Logo & Header -->
-            <div class="logo-section">
-                <div class="logo">
-                    <i class="ri-book-open-line"></i>
-                </div>
-                <h1>Welcome Back</h1>
-                <p class="subtitle">Sign in to continue your learning journey</p>
+        <!-- Conversation Section -->
+        <div class="glass-card conversation-section">
+            <div class="section-header">
+                <h2 class="section-title">Conversation</h2>
+                <button class="global-translate-btn" id="globalTranslateBtn">
+                    <i class="ri-translate-2"></i>
+                    <span>Show All Translations</span>
+                </button>
             </div>
 
-            <!-- Login Form -->
-            <form class="login-form" id="loginForm">
-                <!-- Email Input -->
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <div class="input-wrapper">
-                        <input type="email" id="email" name="email" placeholder="you@example.com" required
-                            autocomplete="email">
-                        <i class="ri-mail-line input-icon"></i>
+            <div class="dialogue-list" id="dialogueList">
+                <!-- Dialogues will be inserted here by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <div class="glass-card quiz-section">
+            <div class="quiz-intro">
+                <h2>Comprehension Quiz 📝</h2>
+                <p>Test your understanding of the conversation</p>
+            </div>
+
+            <div class="quiz-list" id="quizList">
+                <!-- Quiz items will be inserted here by JavaScript -->
+            </div>
+
+            <button class="submit-quiz-btn" id="submitQuizBtn" disabled>
+                Submit Answers
+            </button>
+
+            <div class="quiz-result" id="quizResult">
+                <h3>Quiz Complete! 🎉</h3>
+                <div class="quiz-score" id="quizScore">0/0</div>
+                <p id="quizMessage"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Player -->
+    <div class="audio-player">
+        <div class="player-container">
+            <div class="player-main">
+                <div class="player-controls-left">
+                    <button class="skip-btn" id="prevBtn" title="Previous">
+                        <i class="ri-skip-back-fill"></i>
+                    </button>
+                    <button class="play-pause-btn" id="playPauseBtn">
+                        <i class="ri-play-fill"></i>
+                    </button>
+                    <button class="skip-btn" id="nextBtn" title="Next">
+                        <i class="ri-skip-forward-fill"></i>
+                    </button>
+                </div>
+
+                <div class="player-progress">
+                    <div class="progress-info">
+                        <div class="current-dialogue" id="currentDialogue">Click play to start</div>
+                        <div class="time-display">
+                            <span id="currentTime">0:00</span> / <span id="totalTime">0:00</span>
+                        </div>
+                    </div>
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress-fill-bar" id="progressFill"></div>
                     </div>
                 </div>
 
-                <!-- Password Input -->
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <div class="input-wrapper">
-                        <input type="password" id="password" name="password" placeholder="Enter your password" required
-                            autocomplete="current-password">
-                        <i class="ri-lock-line input-icon"></i>
-                        <button type="button" class="password-toggle" id="passwordToggle"
-                            aria-label="Toggle password visibility">
-                            <i class="ri-eye-line"></i>
+                <div class="player-controls-right">
+                    <!-- Speed Control -->
+                    <div class="speed-selector">
+                        <button class="control-btn" id="speedBtn">
+                            <i class="ri-speed-line"></i>
+                            <span id="speedText">1.0x</span>
                         </button>
+                        <div class="speed-dropdown" id="speedDropdown">
+                            <div class="speed-option" data-speed="0.5">0.5x</div>
+                            <div class="speed-option" data-speed="0.75">0.75x</div>
+                            <div class="speed-option active" data-speed="1">1.0x</div>
+                            <div class="speed-option" data-speed="1.25">1.25x</div>
+                            <div class="speed-option" data-speed="1.5">1.5x</div>
+                        </div>
+                    </div>
+
+                    <!-- Speaker Selection -->
+                    <div class="speaker-selector">
+                        <button class="control-btn active" id="speakerBtn">
+                            <i class="ri-group-line"></i>
+                            <span id="speakerText">Both</span>
+                        </button>
+                        <div class="speaker-dropdown" id="speakerDropdown">
+                            <div class="speaker-option active" data-speaker="both">
+                                <i class="ri-group-line"></i>
+                                Both Speakers
+                            </div>
+                            <div class="speaker-option" data-speaker="emma">
+                                <i class="ri-user-smile-line"></i>
+                                Emma Only
+                            </div>
+                            <div class="speaker-option" data-speaker="lucas">
+                                <i class="ri-user-line"></i>
+                                Lucas Only
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Remember & Forgot -->
-                <div class="form-options">
-                    <div class="checkbox-wrapper">
-                        <input type="checkbox" id="remember" name="remember">
-                        <label for="remember">Remember me</label>
-                    </div>
-                    <a href="#" class="forgot-link">Forgot password?</a>
-                </div>
-
-                <!-- Submit Button -->
-                <button type="submit" class="btn-primary" id="submitBtn">
-                    Sign In
-                </button>
-            </form>
-
-            <!-- Divider -->
-            <div class="divider">
-                <span>Or continue with</span>
-            </div>
-
-            <!-- Social Login -->
-            <div class="social-login">
-                <button class="social-btn" id="googleBtn">
-                    <i class="ri-google-fill" style="color: #EA4335;"></i>
-                    <span>Google</span>
-                </button>
-                <button class="social-btn" id="githubBtn">
-                    <i class="ri-github-fill" style="color: #181717;"></i>
-                    <span>GitHub</span>
-                </button>
-            </div>
-
-            <!-- Footer -->
-            <div class="form-footer">
-                <p>Don't have an account? <a href="#" class="signup-link">Sign up</a></p>
             </div>
         </div>
     </div>
 
     <script>
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const html = document.documentElement;
+        // === Data ===
+        const conversationData = [
+            {
+                id: 1,
+                speaker: 'Emma',
+                french: 'Bonjour Lucas! Comment vas-tu aujourd\'hui?',
+                english: 'Hello Lucas! How are you today?',
+                type: 'emma',
+                duration: 3
+            },
+            {
+                id: 2,
+                speaker: 'Lucas',
+                french: 'Salut Emma! Je vais très bien, merci. Et toi?',
+                english: 'Hi Emma! I\'m doing very well, thank you. And you?',
+                type: 'lucas',
+                duration: 4
+            },
+            {
+                id: 3,
+                speaker: 'Emma',
+                french: 'Ça va bien! Tu veux prendre un café?',
+                english: 'I\'m good! Do you want to get a coffee?',
+                type: 'emma',
+                duration: 3
+            },
+            {
+                id: 4,
+                speaker: 'Lucas',
+                french: 'Oui, avec plaisir! J\'adore ce café.',
+                english: 'Yes, with pleasure! I love this café.',
+                type: 'lucas',
+                duration: 3
+            },
+            {
+                id: 5,
+                speaker: 'Emma',
+                french: 'Moi aussi. Qu\'est-ce que tu vas commander?',
+                english: 'Me too. What are you going to order?',
+                type: 'emma',
+                duration: 3
+            },
+            {
+                id: 6,
+                speaker: 'Lucas',
+                french: 'Je vais prendre un café au lait et un croissant.',
+                english: 'I\'m going to have a café au lait and a croissant.',
+                type: 'lucas',
+                duration: 4
+            },
+            {
+                id: 7,
+                speaker: 'Emma',
+                french: 'Bonne idée! Pour moi, un thé vert et une tarte aux pommes.',
+                english: 'Good idea! For me, a green tea and an apple tart.',
+                type: 'emma',
+                duration: 4
+            },
+            {
+                id: 8,
+                speaker: 'Lucas',
+                french: 'Parfait! Allons commander.',
+                english: 'Perfect! Let\'s go order.',
+                type: 'lucas',
+                duration: 2
+            }
+        ];
 
-        // Check for saved theme preference or default to light mode
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        html.setAttribute('data-theme', currentTheme);
-        updateThemeIcon(currentTheme);
+        const quizData = [
+            {
+                id: 1,
+                question: 'Où sont Emma et Lucas?',
+                options: [
+                    { id: 'a', text: 'Au restaurant', correct: false },
+                    { id: 'b', text: 'Au café', correct: true },
+                    { id: 'c', text: 'À la maison', correct: false },
+                    { id: 'd', text: 'Au parc', correct: false }
+                ],
+                explanation: 'Emma demande à Lucas s\'il veut prendre un café, et Lucas dit qu\'il adore ce café.'
+            },
+            {
+                id: 2,
+                question: 'Qu\'est-ce que Lucas va commander?',
+                options: [
+                    { id: 'a', text: 'Un thé et un croissant', correct: false },
+                    { id: 'b', text: 'Un café au lait et un croissant', correct: true },
+                    { id: 'c', text: 'Un café noir', correct: false },
+                    { id: 'd', text: 'Un chocolat chaud', correct: false }
+                ],
+                explanation: 'Lucas dit: "Je vais prendre un café au lait et un croissant."'
+            },
+            {
+                id: 3,
+                question: 'Que va prendre Emma?',
+                options: [
+                    { id: 'a', text: 'Un café', correct: false },
+                    { id: 'b', text: 'Un chocolat', correct: false },
+                    { id: 'c', text: 'Un thé vert et une tarte aux pommes', correct: true },
+                    { id: 'd', text: 'Un jus d\'orange', correct: false }
+                ],
+                explanation: 'Emma dit: "Pour moi, un thé vert et une tarte aux pommes."'
+            },
+            {
+                id: 4,
+                question: 'Comment va Lucas?',
+                options: [
+                    { id: 'a', text: 'Il va mal', correct: false },
+                    { id: 'b', text: 'Il va très bien', correct: true },
+                    { id: 'c', text: 'Il est fatigué', correct: false },
+                    { id: 'd', text: 'Il est malade', correct: false }
+                ],
+                explanation: 'Lucas répond: "Je vais très bien, merci."'
+            }
+        ];
 
-        themeToggle.addEventListener('click', () => {
-            const theme = html.getAttribute('data-theme');
-            const newTheme = theme === 'dark' ? 'light' : 'dark';
+        // === Audio Player State ===
+        let isPlaying = false;
+        let currentIndex = 0;
+        let playbackSpeed = 1.0;
+        let speakerFilter = 'both'; // 'both', 'emma', 'lucas'
+        let currentTime = 0;
+        let totalDuration = 0;
+        let animationId = null;
+        let utterance = null;
 
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
-        });
+        // Calculate total duration
+        totalDuration = conversationData.reduce((sum, item) => sum + item.duration, 0);
 
-        function updateThemeIcon(theme) {
-            const icon = themeToggle.querySelector('i');
-            if (theme === 'dark') {
-                icon.className = 'ri-sun-line';
+        // === State ===
+        let globalTranslateActive = false;
+        let userAnswers = {};
+
+        // === Initialize ===
+        function init() {
+            renderDialogues();
+            renderQuiz();
+            setupEventListeners();
+            setupAudioPlayer();
+
+            // Load theme preference
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+
+            // Update total time display
+            document.getElementById('totalTime').textContent = formatTime(totalDuration);
+        }
+
+        // === Render Dialogues ===
+        function renderDialogues() {
+            const dialogueList = document.getElementById('dialogueList');
+
+            conversationData.forEach((item, index) => {
+                const dialogueItem = document.createElement('div');
+                dialogueItem.className = `dialogue-item ${item.type}`;
+                dialogueItem.setAttribute('data-index', index);
+                dialogueItem.innerHTML = `
+                    <div class="avatar ${item.type}">
+                        ${item.speaker[0]}
+                    </div>
+                    <div class="dialogue-content">
+                        <div class="speaker-name ${item.type}">
+                            ${item.speaker}
+                            <span style="color: var(--text-muted); font-size: 12px; font-weight: 500;">• Line ${item.id}</span>
+                        </div>
+                        <div class="french-text">${item.french}</div>
+                        <div class="english-text" id="translation-${item.id}">${item.english}</div>
+                        <div class="dialogue-actions">
+                            <button class="action-btn translate-btn" data-id="${item.id}">
+                                <i class="ri-translate"></i>
+                                Translate
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                // Click to jump to dialogue
+                dialogueItem.addEventListener('click', () => {
+                    jumpToDialogue(index);
+                });
+
+                dialogueList.appendChild(dialogueItem);
+            });
+
+            // Add individual translate button listeners
+            document.querySelectorAll('.translate-btn').forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    const id = this.getAttribute('data-id');
+                    const translation = document.getElementById(`translation-${id}`);
+                    translation.classList.toggle('show');
+                    this.classList.toggle('active');
+
+                    // Update button text
+                    const text = this.classList.contains('active') ? 'Hide' : 'Translate';
+                    this.innerHTML = `<i class="ri-translate"></i> ${text}`;
+                });
+            });
+        }
+
+        // === Audio Player Setup ===
+        function setupAudioPlayer() {
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const progressBar = document.getElementById('progressBar');
+            const speedBtn = document.getElementById('speedBtn');
+            const speedDropdown = document.getElementById('speedDropdown');
+            const speakerBtn = document.getElementById('speakerBtn');
+            const speakerDropdown = document.getElementById('speakerDropdown');
+
+            // Play/Pause
+            playPauseBtn.addEventListener('click', togglePlayPause);
+
+            // Previous/Next
+            prevBtn.addEventListener('click', previousDialogue);
+            nextBtn.addEventListener('click', nextDialogue);
+
+            // Progress bar click
+            progressBar.addEventListener('click', (e) => {
+                const rect = progressBar.getBoundingClientRect();
+                const percent = (e.clientX - rect.left) / rect.width;
+                seekToPercent(percent);
+            });
+
+            // Speed control
+            speedBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                speedDropdown.classList.toggle('show');
+                speakerDropdown.classList.remove('show');
+            });
+
+            document.querySelectorAll('.speed-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    const speed = parseFloat(option.getAttribute('data-speed'));
+                    setPlaybackSpeed(speed);
+                    speedDropdown.classList.remove('show');
+                });
+            });
+
+            // Speaker control
+            speakerBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                speakerDropdown.classList.toggle('show');
+                speedDropdown.classList.remove('show');
+            });
+
+            document.querySelectorAll('.speaker-option').forEach(option => {
+                option.addEventListener('click', () => {
+                    const speaker = option.getAttribute('data-speaker');
+                    setSpeakerFilter(speaker);
+                    speakerDropdown.classList.remove('show');
+                });
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', () => {
+                speedDropdown.classList.remove('show');
+                speakerDropdown.classList.remove('show');
+            });
+        }
+
+        // === Audio Player Functions ===
+        function togglePlayPause() {
+            if (isPlaying) {
+                pause();
             } else {
-                icon.className = 'ri-moon-line';
+                play();
             }
         }
 
-        // Password Toggle
-        const passwordToggle = document.getElementById('passwordToggle');
-        const passwordInput = document.getElementById('password');
+        function play() {
+            isPlaying = true;
+            document.getElementById('playPauseBtn').innerHTML = '<i class="ri-pause-fill"></i>';
+            playCurrentDialogue();
+        }
 
-        passwordToggle.addEventListener('click', () => {
-            const type = passwordInput.type === 'password' ? 'text' : 'password';
-            passwordInput.type = type;
+        function pause() {
+            isPlaying = false;
+            document.getElementById('playPauseBtn').innerHTML = '<i class="ri-play-fill"></i>';
+            if (utterance) {
+                window.speechSynthesis.cancel();
+            }
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+            }
+        }
 
-            const icon = passwordToggle.querySelector('i');
-            icon.className = type === 'password' ? 'ri-eye-line' : 'ri-eye-off-line';
-        });
+        function playCurrentDialogue() {
+            if (!isPlaying) return;
 
-        // Form Submission
-        const loginForm = document.getElementById('loginForm');
-        const submitBtn = document.getElementById('submitBtn');
+            const dialogue = conversationData[currentIndex];
 
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+            // Check speaker filter
+            if (speakerFilter !== 'both' && dialogue.type !== speakerFilter) {
+                // Skip this dialogue
+                nextDialogue();
+                return;
+            }
 
-            // Get form data
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const remember = document.getElementById('remember').checked;
+            // Update UI
+            updatePlayerUI();
+            highlightCurrentDialogue();
 
-            // Add loading state
-            submitBtn.classList.add('loading');
-            submitBtn.textContent = '';
+            // Speak using Web Speech API
+            utterance = new SpeechSynthesisUtterance(dialogue.french);
+            utterance.lang = 'fr-FR';
+            utterance.rate = playbackSpeed;
 
-            // Simulate API call
-            setTimeout(() => {
-                // Remove loading state
-                submitBtn.classList.remove('loading');
-                submitBtn.textContent = 'Sign In';
+            utterance.onend = () => {
+                if (isPlaying) {
+                    if (currentIndex < conversationData.length - 1) {
+                        nextDialogue();
+                    } else {
+                        pause();
+                        currentIndex = 0;
+                        currentTime = 0;
+                        updatePlayerUI();
+                    }
+                }
+            };
 
-                // Show success message (in real app, redirect to dashboard)
-                alert(`Login successful!\n\nEmail: ${email}\nRemember me: ${remember}`);
+            window.speechSynthesis.speak(utterance);
 
-                // Reset form
-                loginForm.reset();
-            }, 2000);
-        });
+            // Animate progress
+            animateProgress(dialogue.duration);
+        }
 
-        // Social Login Handlers
-        document.getElementById('googleBtn').addEventListener('click', () => {
-            alert('Google login would be implemented here');
-        });
+        function animateProgress(duration) {
+            const startTime = Date.now();
+            const animate = () => {
+                if (!isPlaying) return;
 
-        document.getElementById('githubBtn').addEventListener('click', () => {
-            alert('GitHub login would be implemented here');
-        });
+                const elapsed = (Date.now() - startTime) / 1000;
+                const progress = Math.min(elapsed / duration, 1);
 
-        // Input Focus Animation
-        const inputs = document.querySelectorAll('input[type="email"], input[type="password"]');
-        inputs.forEach(input => {
-            input.addEventListener('focus', () => {
-                input.parentElement.style.transform = 'scale(1.01)';
+                // Update progress bar for current dialogue
+                const dialogueStartTime = conversationData.slice(0, currentIndex).reduce((sum, d) => sum + d.duration, 0);
+                const overallProgress = (dialogueStartTime + (progress * duration)) / totalDuration;
+
+                document.getElementById('progressFill').style.width = (overallProgress * 100) + '%';
+                document.getElementById('currentTime').textContent = formatTime(dialogueStartTime + (progress * duration));
+
+                if (progress < 1) {
+                    animationId = requestAnimationFrame(animate);
+                }
+            };
+            animate();
+        }
+
+        function previousDialogue() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                if (isPlaying) {
+                    window.speechSynthesis.cancel();
+                    playCurrentDialogue();
+                } else {
+                    updatePlayerUI();
+                    highlightCurrentDialogue();
+                }
+            }
+        }
+
+        function nextDialogue() {
+            if (currentIndex < conversationData.length - 1) {
+                currentIndex++;
+                if (isPlaying) {
+                    window.speechSynthesis.cancel();
+                    playCurrentDialogue();
+                } else {
+                    updatePlayerUI();
+                    highlightCurrentDialogue();
+                }
+            }
+        }
+
+        function jumpToDialogue(index) {
+            currentIndex = index;
+            if (isPlaying) {
+                window.speechSynthesis.cancel();
+                playCurrentDialogue();
+            } else {
+                updatePlayerUI();
+                highlightCurrentDialogue();
+                play();
+            }
+        }
+
+        function seekToPercent(percent) {
+            const targetTime = totalDuration * percent;
+            let accumulatedTime = 0;
+
+            for (let i = 0; i < conversationData.length; i++) {
+                if (accumulatedTime + conversationData[i].duration > targetTime) {
+                    currentIndex = i;
+                    break;
+                }
+                accumulatedTime += conversationData[i].duration;
+            }
+
+            if (isPlaying) {
+                window.speechSynthesis.cancel();
+                playCurrentDialogue();
+            } else {
+                updatePlayerUI();
+                highlightCurrentDialogue();
+            }
+        }
+
+        function setPlaybackSpeed(speed) {
+            playbackSpeed = speed;
+            document.getElementById('speedText').textContent = speed + 'x';
+
+            // Update active state
+            document.querySelectorAll('.speed-option').forEach(opt => {
+                opt.classList.remove('active');
+                if (parseFloat(opt.getAttribute('data-speed')) === speed) {
+                    opt.classList.add('active');
+                }
             });
 
-            input.addEventListener('blur', () => {
-                input.parentElement.style.transform = 'scale(1)';
+            // If currently playing, restart with new speed
+            if (isPlaying) {
+                window.speechSynthesis.cancel();
+                playCurrentDialogue();
+            }
+        }
+
+        function setSpeakerFilter(speaker) {
+            speakerFilter = speaker;
+
+            // Update button text
+            const speakerText = {
+                'both': 'Both',
+                'emma': 'Emma',
+                'lucas': 'Lucas'
+            };
+            document.getElementById('speakerText').textContent = speakerText[speaker];
+
+            // Update active state
+            document.querySelectorAll('.speaker-option').forEach(opt => {
+                opt.classList.remove('active');
+                if (opt.getAttribute('data-speaker') === speaker) {
+                    opt.classList.add('active');
+                }
             });
-        });
+
+            // If currently playing, move to next valid dialogue
+            if (isPlaying && speaker !== 'both') {
+                const currentDialogue = conversationData[currentIndex];
+                if (currentDialogue.type !== speaker) {
+                    window.speechSynthesis.cancel();
+                    nextDialogue();
+                }
+            }
+        }
+
+        function updatePlayerUI() {
+            const dialogue = conversationData[currentIndex];
+            document.getElementById('currentDialogue').textContent = `${dialogue.speaker}: ${dialogue.french}`;
+
+            const currentTimeValue = conversationData.slice(0, currentIndex).reduce((sum, d) => sum + d.duration, 0);
+            document.getElementById('currentTime').textContent = formatTime(currentTimeValue);
+
+            const progress = currentTimeValue / totalDuration;
+            document.getElementById('progressFill').style.width = (progress * 100) + '%';
+
+            // Update button states
+            document.getElementById('prevBtn').disabled = currentIndex === 0;
+            document.getElementById('nextBtn').disabled = currentIndex === conversationData.length - 1;
+        }
+
+        function highlightCurrentDialogue() {
+            // Remove all playing states
+            document.querySelectorAll('.dialogue-item').forEach(item => {
+                item.classList.remove('playing');
+            });
+
+            // Add playing state to current
+            const currentItem = document.querySelector(`[data-index="${currentIndex}"]`);
+            if (currentItem) {
+                currentItem.classList.add('playing');
+                currentItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // === Render Quiz ===
+        function renderQuiz() {
+            const quizList = document.getElementById('quizList');
+
+            quizData.forEach(quiz => {
+                const quizItem = document.createElement('div');
+                quizItem.className = 'quiz-item';
+                quizItem.setAttribute('data-quiz-id', quiz.id);
+
+                let optionsHTML = '';
+                quiz.options.forEach(option => {
+                    optionsHTML += `
+                        <button class="quiz-option" data-quiz-id="${quiz.id}" data-option-id="${option.id}" data-correct="${option.correct}">
+                            ${option.text}
+                        </button>
+                    `;
+                });
+
+                quizItem.innerHTML = `
+                    <div class="quiz-question">
+                        <span style="color: var(--primary); margin-right: 8px;">Q${quiz.id}.</span>
+                        ${quiz.question}
+                    </div>
+                    <div class="quiz-options">
+                        ${optionsHTML}
+                    </div>
+                    <div class="quiz-feedback" id="feedback-${quiz.id}"></div>
+                `;
+
+                quizList.appendChild(quizItem);
+            });
+
+            // Add option click listeners
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.addEventListener('click', function () {
+                    const quizId = this.getAttribute('data-quiz-id');
+                    const optionId = this.getAttribute('data-option-id');
+
+                    // Remove selected class from siblings
+                    const siblings = this.parentElement.querySelectorAll('.quiz-option');
+                    siblings.forEach(sib => sib.classList.remove('selected'));
+
+                    // Add selected class to this option
+                    this.classList.add('selected');
+
+                    // Store answer
+                    userAnswers[quizId] = {
+                        optionId: optionId,
+                        correct: this.getAttribute('data-correct') === 'true'
+                    };
+
+                    // Check if all questions answered
+                    checkQuizComplete();
+                });
+            });
+        }
+
+        // === Check Quiz Complete ===
+        function checkQuizComplete() {
+            const submitBtn = document.getElementById('submitQuizBtn');
+            if (Object.keys(userAnswers).length === quizData.length) {
+                submitBtn.disabled = false;
+            }
+        }
+
+        // === Submit Quiz ===
+        function submitQuiz() {
+            let correctCount = 0;
+
+            quizData.forEach(quiz => {
+                const userAnswer = userAnswers[quiz.id];
+                const feedbackEl = document.getElementById(`feedback-${quiz.id}`);
+                const quizItem = document.querySelector(`[data-quiz-id="${quiz.id}"]`);
+                const options = quizItem.querySelectorAll('.quiz-option');
+
+                // Disable all options
+                options.forEach(opt => opt.classList.add('disabled'));
+
+                // Find correct option
+                const correctOption = Array.from(options).find(opt => opt.getAttribute('data-correct') === 'true');
+                correctOption.classList.add('correct');
+
+                if (userAnswer.correct) {
+                    correctCount++;
+                    feedbackEl.className = 'quiz-feedback correct show';
+                    feedbackEl.innerHTML = `
+                        <strong><i class="ri-check-line"></i> Correct!</strong><br>
+                        ${quiz.explanation}
+                    `;
+                } else {
+                    const selectedOption = Array.from(options).find(opt =>
+                        opt.getAttribute('data-option-id') === userAnswer.optionId
+                    );
+                    selectedOption.classList.add('wrong');
+
+                    feedbackEl.className = 'quiz-feedback wrong show';
+                    feedbackEl.innerHTML = `
+                        <strong><i class="ri-close-line"></i> Incorrect</strong><br>
+                        ${quiz.explanation}
+                    `;
+                }
+            });
+
+            // Show result
+            const resultEl = document.getElementById('quizResult');
+            const scoreEl = document.getElementById('quizScore');
+            const messageEl = document.getElementById('quizMessage');
+
+            scoreEl.textContent = `${correctCount}/${quizData.length}`;
+
+            const percentage = (correctCount / quizData.length) * 100;
+            if (percentage === 100) {
+                messageEl.textContent = 'Perfect score! Excellent work! 🌟';
+            } else if (percentage >= 75) {
+                messageEl.textContent = 'Great job! Keep practicing! 👏';
+            } else if (percentage >= 50) {
+                messageEl.textContent = 'Good effort! Review the conversation and try again. 💪';
+            } else {
+                messageEl.textContent = 'Keep learning! Practice makes perfect. 📚';
+            }
+
+            resultEl.classList.add('show');
+
+            // Disable submit button
+            document.getElementById('submitQuizBtn').disabled = true;
+            document.getElementById('submitQuizBtn').textContent = 'Quiz Completed';
+        }
+
+        // === Event Listeners ===
+        function setupEventListeners() {
+            // Global translate button
+            document.getElementById('globalTranslateBtn').addEventListener('click', function () {
+                globalTranslateActive = !globalTranslateActive;
+
+                const translations = document.querySelectorAll('.english-text');
+                const translateBtns = document.querySelectorAll('.translate-btn');
+
+                if (globalTranslateActive) {
+                    translations.forEach(t => t.classList.add('show'));
+                    translateBtns.forEach(btn => {
+                        btn.classList.add('active');
+                        btn.innerHTML = '<i class="ri-translate"></i> Hide';
+                    });
+                    this.classList.add('active');
+                    this.innerHTML = '<i class="ri-translate-2"></i> <span>Hide All Translations</span>';
+                } else {
+                    translations.forEach(t => t.classList.remove('show'));
+                    translateBtns.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.innerHTML = '<i class="ri-translate"></i> Translate';
+                    });
+                    this.classList.remove('active');
+                    this.innerHTML = '<i class="ri-translate-2"></i> <span>Show All Translations</span>';
+                }
+            });
+
+            // Theme toggle
+            document.getElementById('themeToggle').addEventListener('click', function () {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+            });
+
+            // Submit quiz button
+            document.getElementById('submitQuizBtn').addEventListener('click', submitQuiz);
+        }
+
+        // === Update Theme Icon ===
+        function updateThemeIcon(theme) {
+            const icon = document.querySelector('#themeToggle i');
+            icon.className = theme === 'dark' ? 'ri-sun-line' : 'ri-moon-line';
+        }
+
+        // === Initialize App ===
+        init();
     </script>
 </body>
 
